@@ -13,6 +13,11 @@
 - AMT_CREDIT coefficient 1.272 with AMT_GOODS_PRICE, 0.233 without; AUC cost 0.003.
 - SHAP and built-in importance agree on EXT_SOURCE_2/3, then diverge. Aggregate by original variable next.
 
+- Real data: our Newton method (197 columns plus intercept, L2 penalty 1/n, intercept unpenalised) converged in 13 iterations (36 s), slope 1e-16. Gradient descent after 2000 steps (164 s) still 5e-4 from the optimum.
+- Penalty makes the matrix invertible: smallest eigenvalue -5e-17 without it, 1.2e-6 with it.
+- scikit-learn default (lbfgs) stops with slope 3.4e-4. With newton-cholesky and tol 1e-12 it matches our solution exactly (differences 0.0).
+- Early-stopped sklearn gave coefficients far from ours on redundant directions (intercept -0.61 vs -3.19), but 98.7% of test applicants differ by less than 0.01. Individual coefficients are unreliable when columns are redundant, predictions are not.
+
 1. Why accuracy fails here
 
 About 92 of every 100 applicants repay. Suppose a “model” says “no default” for everyone. It is right 92% of the time and has never caught a single defaulter, so it’s useless to a lender. A high accuracy number can hide a model that does nothing.
