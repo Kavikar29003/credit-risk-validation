@@ -8,6 +8,10 @@
 - AMT_CREDIT and AMT_GOODS_PRICE correlation 0.988, coefficients +1.27 and -1.11 are an artefact of collinearity.
 - X'X rank 183 of 197 (14 exactly redundant directions), so Newton needs a ridge term.
 - Subgroups (gender, pensioner, no-bureau): observed vs predicted within about 1.3 standard errors. AUC lower for pensioners and no-bureau applicants (0.72 to 0.74).
+- - Redundant columns: 12 relations from the 13 one-hot groups (no constant column in X) plus 2 constant numeric columns (FLAG_MOBIL, FLAG_DOCUMENT_12) = 14. Newton needs a ridge term, lambda = 1/C.
+- Gender ablation: AUC falls about 0.003 (LR 0.7540 to 0.7512, XGB 0.7613 to 0.7587). Without gender, predicted default for women is 7.5% vs observed 7.0%, and for men 9.0% vs 10.2% (about 4.5 and 5.7 standard errors).
+- AMT_CREDIT coefficient 1.272 with AMT_GOODS_PRICE, 0.233 without; AUC cost 0.003.
+- SHAP and built-in importance agree on EXT_SOURCE_2/3, then diverge. Aggregate by original variable next.
 
 1. Why accuracy fails here
 
