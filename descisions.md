@@ -3,6 +3,11 @@
 - DAYS_EMPLOYED = 365243 in 55,374 rows (18%), a placeholder. Default rate 5.4% vs 8.7%, so replace with missing and add an is_placeholder flag.
 - 41 columns over 50% missing, mostly housing details in _AVG/_MODE/_MEDI triplets. Decision pending.
 - Bureau has several rows per applicant (mean 5.6, max 116). Aggregate to one row per applicant before joining.
+- Class weighting leaves AUC unchanged (0.7535 vs 0.7540) but inflates mean predicted risk to 42% against a true 8% (ECE 0.340, Brier 0.202).
+- Platt scaling on the calibration set restores it (ECE 0.0030, Brier 0.0682). Platt intercept -2.432 matches log(n0/n1) = log(11.39) = 2.43. Derive by hand.
+- AMT_CREDIT and AMT_GOODS_PRICE correlation 0.988, coefficients +1.27 and -1.11 are an artefact of collinearity.
+- X'X rank 183 of 197 (14 exactly redundant directions), so Newton needs a ridge term.
+- Subgroups (gender, pensioner, no-bureau): observed vs predicted within about 1.3 standard errors. AUC lower for pensioners and no-bureau applicants (0.72 to 0.74).
 
 1. Why accuracy fails here
 
