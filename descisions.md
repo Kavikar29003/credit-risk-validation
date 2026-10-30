@@ -1,3 +1,9 @@
+## Day 1 audit
+- Data: 307,511 applicants, 8.07% default. Accuracy is a poor metric, so use AUC, log-loss, Brier score and calibration.
+- DAYS_EMPLOYED = 365243 in 55,374 rows (18%), a placeholder. Default rate 5.4% vs 8.7%, so replace with missing and add an is_placeholder flag.
+- 41 columns over 50% missing, mostly housing details in _AVG/_MODE/_MEDI triplets. Decision pending.
+- Bureau has several rows per applicant (mean 5.6, max 116). Aggregate to one row per applicant before joining.
+
 1. Why accuracy fails here
 
 About 92 of every 100 applicants repay. Suppose a “model” says “no default” for everyone. It is right 92% of the time and has never caught a single defaulter, so it’s useless to a lender. A high accuracy number can hide a model that does nothing.
