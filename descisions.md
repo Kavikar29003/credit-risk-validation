@@ -37,3 +37,6 @@ The usual fix has two steps. Replace 365243 with a missing value, then add a new
 Cell 6 shows that each applicant can have many rows, one per past credit account. If you join that directly onto the application table, every applicant is copied once per credit account. The data would then contain duplicates, and some people would count many times over.
 
 The fix is to collapse the bureau table to one row per applicant first. For example, count their past loans, take the average and maximum amounts, and count the overdue ones. Then you join one row to one row.
+
+## Day 2 audit
+Weighted score is about 1.011 × plain score + 2.457 (algebra: 1, 2.432). Platt intercept -2.4316 vs -2.4325 from the algebra. Subtracting log(n0/n1) with no fitting repairs the probabilities as well as Platt.”
