@@ -39,4 +39,7 @@ Cell 6 shows that each applicant can have many rows, one per past credit account
 The fix is to collapse the bureau table to one row per applicant first. For example, count their past loans, take the average and maximum amounts, and count the overdue ones. Then you join one row to one row.
 
 ## Day 2 audit
-Weighted score is about 1.011 × plain score + 2.457 (algebra: 1, 2.432). Platt intercept -2.4316 vs -2.4325 from the algebra. Subtracting log(n0/n1) with no fitting repairs the probabilities as well as Platt.”
+- Weighted score is about 1.011 × plain score + 2.457 (algebra: 1, 2.432). Platt intercept -2.4316 vs -2.4325 from the algebra. Subtracting log(n0/n1) with no fitting repairs the probabilities as well as Platt.”
+- Explanation stability (15 retrained XGBoost models, SHAP summed per original variable): EXT_SOURCE_2 rank 1 and EXT_SOURCE_3 rank 2 in all 15; top 5 variables stable in 93-100% of resamples; AMT_CREDIT rank 6 to 11.
+- Logistic regression: AMT_CREDIT 1.20 (sd 0.05), AMT_GOODS_PRICE -1.06 (sd 0.05), sum 0.144 (sd 0.027). Stable under resampling, but AMT_CREDIT falls to 0.23 if AMT_GOODS_PRICE is dropped. Fragility is in model specification, not sampling.
+- Limits: 15 resamples; seed variation included; test sample for SHAP fixed.
